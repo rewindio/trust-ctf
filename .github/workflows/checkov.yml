@@ -1,0 +1,10 @@
+name: checkov
+concurrency: checkov
+on: pull_request
+
+jobs:
+  checkov-static-analysis:
+    name: "checkov"
+    uses: rewindio/github-action-terraform-aws/.github/workflows/checkov.yml@v1
+    secrets:
+      GITHUB_PAT: ${{ secrets.thirdblink_deploy_PAT }}
