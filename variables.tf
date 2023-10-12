@@ -32,3 +32,10 @@ variable "subnet_cftd_cidr_block" {
 
   default = "192.168.42.128/26"
 }
+
+variable "instance_type" {
+  description = "The instance type to use for the CTFd and OWASP Juice Shop EC2 instances"
+  type        = string
+
+  default = "t2.micro"
+}

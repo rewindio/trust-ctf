@@ -29,6 +29,6 @@ resource "aws_security_group" "ctf" {
   }
 
   tags = {
-    Name = "sg-default-ctf"
+    Name = "sg-ctf-default"
   }
 }
