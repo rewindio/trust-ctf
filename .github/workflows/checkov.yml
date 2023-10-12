@@ -1,10 +1,24 @@
 name: checkov
 concurrency: checkov
-on: pull_request
+
+on: [pull_request, workflow_call]
+
+permissions: read-all
 
 jobs:
   checkov-static-analysis:
     name: "checkov"
-    uses: rewindio/github-action-terraform-aws/.github/workflows/checkov.yml@v1
-    secrets:
-      GITHUB_PAT: ${{ secrets.thirdblink_deploy_PAT }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+
+      - name: Checkov static analysis
+        id: static-analysis
+        uses: bridgecrewio/checkov-action@99bb2caf247dfd9f03cf984373bc6043d4e32ebf # v12.1347.0
+        with:
+          directory: .
+          framework: terraform
+          hard_fail_on: CRITICAL
+          skip_check: CKV_TF_1
+          output_format: cli
