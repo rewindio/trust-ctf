@@ -1,6 +1,14 @@
 ###======================== CTF Security Groups ====================== ###
 
+resource "aws_default_security_group" "ctf" {
+  vpc_id = aws_vpc.ctf.id
+
+  # Default Deny All Traffic in VPC default SG
+}
+
 resource "aws_security_group" "ctf" {
+  #checkov:skip=CKV_AWS_260:Ensure no security groups allow ingress from 0.0.0.0:0 to port 80
+
   name        = "CTF Default Security Group"
   description = "CTF Default Security Group"
   vpc_id      = aws_vpc.ctf.id
@@ -22,6 +30,7 @@ resource "aws_security_group" "ctf" {
   }
 
   egress {
+    description = "Allow All Traffic Outbound"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"

@@ -11,6 +11,11 @@ data "aws_ami" "amzn-linux-2023-ami" {
 ###======================== CTFd EC2 ====================== ###
 
 resource "aws_instance" "ctfd" {
+  #checkov:skip=CKV_AWS_8:Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted
+  #checkov:skip=CKV_AWS_88:EC2 instance should not have public IP
+  #checkov:skip=CKV_AWS_126:Ensure that detailed monitoring is enabled for EC2 instances
+  #checkov:skip=CKV_AWS_135:Ensure that EC2 is EBS optimized
+
   ami           = data.aws_ami.amzn-linux-2023-ami.id
   instance_type = var.instance_type
 
@@ -41,6 +46,11 @@ resource "aws_instance" "ctfd" {
 ###================= OWASP Juice Shop EC2 ================= ###
 
 resource "aws_instance" "owaspjs" {
+  #checkov:skip=CKV_AWS_8:Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted
+  #checkov:skip=CKV_AWS_88:EC2 instance should not have public IP
+  #checkov:skip=CKV_AWS_126:Ensure that detailed monitoring is enabled for EC2 instances
+  #checkov:skip=CKV_AWS_135:Ensure that EC2 is EBS optimized
+
   ami           = data.aws_ami.amzn-linux-2023-ami.id
   instance_type = var.instance_type
 

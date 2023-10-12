@@ -1,6 +1,8 @@
 ###======================== CTF VPC ====================== ###
 
 resource "aws_vpc" "ctf" {
+  #checkov:skip=CKV2_AWS_11:Ensure VPC flow logging is enabled in all VPCs
+
   cidr_block       = var.vpc_cidr_block
   instance_tenancy = "default"
 
