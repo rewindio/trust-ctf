@@ -5,6 +5,20 @@ variable "aws_region" {
   default = "ca-central-1"
 }
 
+variable "aws_availability_zone_a" {
+  description = "The availability zone to deploy into (defaults to 'ca-central-1a' for legal reasons)"
+  type        = string
+
+  default = "ca-central-1a"
+}
+
+variable "aws_availability_zone_b" {
+  description = "The availability zone to deploy into (defaults to 'ca-central-1b' for legal reasons)"
+  type        = string
+
+  default = "ca-central-1b"
+}
+
 variable "vpc_cidr_block" {
   description = "The IPv4 CIDR block for the CTF VPC"
   type        = string
@@ -33,9 +47,31 @@ variable "subnet_cftd_cidr_block" {
   default = "192.168.42.128/26"
 }
 
+variable "subnet_a_rds_cidr_block" {
+  description = "The IPv4 CIDR block for the RDS subnet A"
+  type        = string
+
+  default = "192.168.42.192/28"
+
+}
+
+variable "subnet_b_rds_cidr_block" {
+  description = "The IPv4 CIDR block for the RDS subnet B"
+  type        = string
+
+  default = "192.168.42.208/28"
+
+}
+
 variable "instance_type" {
   description = "The instance type to use for the CTFd and OWASP Juice Shop EC2 instances"
   type        = string
 
   default = "t2.micro"
+}
+
+variable "db_password" {
+  description = "RDS root user password"
+  type        = string
+  sensitive   = true
 }
