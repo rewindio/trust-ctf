@@ -71,7 +71,7 @@ variable "instance_type" {
 }
 
 variable "db_password" {
-  description = "RDS root user password"
+  description = "RDS user password"
   type        = string
   sensitive   = true
 }

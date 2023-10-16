@@ -111,7 +111,7 @@ resource "aws_subnet" "rds_a" {
   enable_resource_name_dns_a_record_on_launch = true
 
   tags = {
-    Name = "RDS A | Subnet"
+    Name = "RDS | Subnet ${var.aws_availability_zone_a}"
   }
 }
 
@@ -123,7 +123,7 @@ resource "aws_subnet" "rds_b" {
   enable_resource_name_dns_a_record_on_launch = true
 
   tags = {
-    Name = "RDS B | Subnet"
+    Name = "RDS | Subnet ${var.aws_availability_zone_b}"
   }
 }
 
