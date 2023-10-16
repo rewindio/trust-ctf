@@ -70,6 +70,30 @@ resource "aws_route_table" "ctf_natgw" {
   }
 }
 
+resource "aws_subnet" "public_a" {
+  vpc_id     = aws_vpc.ctf.id
+  cidr_block = var.subnet_a_public_cidr_block
+  availability_zone = var.aws_availability_zone_a
+
+  enable_resource_name_dns_a_record_on_launch = true
+
+  tags = {
+    Name = "Public | Subnet A ${var.aws_availability_zone_a}"
+  }
+}
+
+resource "aws_subnet" "public_b" {
+  vpc_id     = aws_vpc.ctf.id
+  cidr_block = var.subnet_b_public_cidr_block
+  availability_zone = var.aws_availability_zone_b
+
+  enable_resource_name_dns_a_record_on_launch = true
+
+  tags = {
+    Name = "Public | Subnet B ${var.aws_availability_zone_b}"
+  }
+}
+
 resource "aws_subnet" "natgw" {
   vpc_id     = aws_vpc.ctf.id
   cidr_block = var.subnet_natgw_cidr_block
@@ -93,8 +117,8 @@ resource "aws_subnet" "ctfd" {
 }
 
 resource "aws_subnet" "owaspjs" {
-  vpc_id     = aws_vpc.ctf.id
-  cidr_block = var.subnet_owaspjs_cidr_block
+  vpc_id            = aws_vpc.ctf.id
+  cidr_block        = var.subnet_owaspjs_cidr_block
 
   enable_resource_name_dns_a_record_on_launch = true
 
@@ -125,6 +149,16 @@ resource "aws_subnet" "rds_b" {
   tags = {
     Name = "RDS | Subnet ${var.aws_availability_zone_b}"
   }
+}
+
+resource "aws_route_table_association" "public_a" {
+  subnet_id      = aws_subnet.public_a.id
+  route_table_id = aws_route_table.ctf.id
+}
+
+resource "aws_route_table_association" "public_b" {
+  subnet_id      = aws_subnet.public_b.id
+  route_table_id = aws_route_table.ctf.id
 }
 
 resource "aws_route_table_association" "natgw" {

@@ -26,33 +26,46 @@ variable "vpc_cidr_block" {
   default = "192.168.42.0/24"
 }
 
+variable "subnet_a_public_cidr_block" {
+  description = "The IPv4 CIDR block for the public subnet A"
+  type        = string
+
+  default = "192.168.42.0/27"
+}
+
+variable "subnet_b_public_cidr_block" {
+  description = "The IPv4 CIDR block for the public subnet B"
+  type        = string
+
+  default = "192.168.42.32/27"
+}
+
 variable "subnet_natgw_cidr_block" {
   description = "The IPv4 CIDR block for the NAT Gateway subnet"
   type        = string
 
-  default = "192.168.42.0/26"
+  default = "192.168.42.64/27"
 }
 
 variable "subnet_owaspjs_cidr_block" {
   description = "The IPv4 CIDR block for the OWASP Juice Shop subnet"
   type        = string
 
-  default = "192.168.42.64/26"
+  default = "192.168.42.96/27"
 }
 
 variable "subnet_cftd_cidr_block" {
   description = "The IPv4 CIDR block for the CFTd subnet"
   type        = string
 
-  default = "192.168.42.128/26"
+  default = "192.168.42.128/27"
 }
 
 variable "subnet_a_rds_cidr_block" {
   description = "The IPv4 CIDR block for the RDS subnet A"
   type        = string
 
-  default = "192.168.42.192/28"
-
+  default = "192.168.42.160/27"
 }
 
 variable "subnet_b_rds_cidr_block" {
@@ -60,7 +73,6 @@ variable "subnet_b_rds_cidr_block" {
   type        = string
 
   default = "192.168.42.208/28"
-
 }
 
 variable "instance_type" {
