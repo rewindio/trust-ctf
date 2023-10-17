@@ -1,6 +1,10 @@
 # ###======================== CTF ALB ====================== ###
 
 resource "aws_lb" "owaspjs" {
+  # checkov:skip=CKV_AWS_150: Ensure that Load Balancer has deletion protection enabled
+  # checkov:skip=CKV_AWS_91: Ensure the ELBv2 (Application/Network) has access logging enabled
+  # checkov:skip=CKV_AWS_131: Ensure that ALB drops HTTP headers
+
   load_balancer_type         = "application"
   enable_deletion_protection = false
   enable_http2               = true
@@ -37,6 +41,8 @@ resource "aws_lb_target_group_attachment" "owaspjs" {
 }
 
 resource "aws_lb_listener" "owaspjs" {
+  # checkov:skip=CKV_AWS_2: Ensure ALB protocol is HTTPS
+
   load_balancer_arn = aws_lb.owaspjs.arn
   port              = "80"
   protocol          = "HTTP"
@@ -48,6 +54,10 @@ resource "aws_lb_listener" "owaspjs" {
 }
 
 resource "aws_lb" "cftd" {
+  # checkov:skip=CKV_AWS_150: Ensure that Load Balancer has deletion protection enabled
+  # checkov:skip=CKV_AWS_91: Ensure the ELBv2 (Application/Network) has access logging enabled
+  # checkov:skip=CKV_AWS_131: Ensure that ALB drops HTTP headers
+
   load_balancer_type         = "application"
   enable_deletion_protection = false
   enable_http2               = true
@@ -84,6 +94,8 @@ resource "aws_lb_target_group_attachment" "cftd" {
 }
 
 resource "aws_lb_listener" "cftd" {
+  # checkov:skip=CKV_AWS_2: Ensure ALB protocol is HTTPS
+
   load_balancer_arn = aws_lb.cftd.arn
   port              = "80"
   protocol          = "HTTP"

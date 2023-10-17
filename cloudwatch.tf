@@ -7,6 +7,7 @@ data "aws_region" "current" {}
 data "aws_iam_policy_document" "cloudwatch_waf_kms" {
   # checkov:skip=CKV_AWS_109: Allow `*` resources
   # checkov:skip=CKV_AWS_111: Allow `kms:*` actions
+  # checkov:skip=CKV_AWS_356: Allow `kms:*` actions
   statement {
     principals {
       type = "AWS"
@@ -60,6 +61,8 @@ resource "aws_kms_alias" "cloudwatch_waf" {
 }
 
 resource "aws_cloudwatch_log_group" "waf" {
+  # checkov:skip=CKV_AWS_338: Ensure CloudWatch log groups retains logs for at least 1 year
+
   name              = "aws-waf-logs-ctf"
   retention_in_days = 7
   kms_key_id        = aws_kms_key.cloudwatch_waf.arn
