@@ -71,8 +71,8 @@ resource "aws_route_table" "ctf_natgw" {
 }
 
 resource "aws_subnet" "public_a" {
-  vpc_id     = aws_vpc.ctf.id
-  cidr_block = var.subnet_a_public_cidr_block
+  vpc_id            = aws_vpc.ctf.id
+  cidr_block        = var.subnet_a_public_cidr_block
   availability_zone = var.aws_availability_zone_a
 
   enable_resource_name_dns_a_record_on_launch = true
@@ -83,8 +83,8 @@ resource "aws_subnet" "public_a" {
 }
 
 resource "aws_subnet" "public_b" {
-  vpc_id     = aws_vpc.ctf.id
-  cidr_block = var.subnet_b_public_cidr_block
+  vpc_id            = aws_vpc.ctf.id
+  cidr_block        = var.subnet_b_public_cidr_block
   availability_zone = var.aws_availability_zone_b
 
   enable_resource_name_dns_a_record_on_launch = true
@@ -106,8 +106,10 @@ resource "aws_subnet" "natgw" {
 }
 
 resource "aws_subnet" "ctfd" {
-  vpc_id     = aws_vpc.ctf.id
-  cidr_block = var.subnet_cftd_cidr_block
+  vpc_id            = aws_vpc.ctf.id
+  cidr_block        = var.subnet_cftd_cidr_block
+  availability_zone = var.aws_availability_zone_a
+
 
   enable_resource_name_dns_a_record_on_launch = true
 
@@ -119,6 +121,8 @@ resource "aws_subnet" "ctfd" {
 resource "aws_subnet" "owaspjs" {
   vpc_id            = aws_vpc.ctf.id
   cidr_block        = var.subnet_owaspjs_cidr_block
+  availability_zone = var.aws_availability_zone_a
+
 
   enable_resource_name_dns_a_record_on_launch = true
 

@@ -15,8 +15,9 @@ resource "aws_instance" "ctfd" {
   #checkov:skip=CKV_AWS_126:Ensure that detailed monitoring is enabled for EC2 instances
   #checkov:skip=CKV_AWS_135:Ensure that EC2 is EBS optimized
 
-  ami           = data.aws_ami.amzn-linux-2023-ami.id
-  instance_type = var.instance_type
+  ami               = data.aws_ami.amzn-linux-2023-ami.id
+  instance_type     = var.instance_type
+  availability_zone = var.aws_availability_zone_a
 
   subnet_id                   = aws_subnet.ctfd.id
   associate_public_ip_address = false
@@ -49,8 +50,9 @@ resource "aws_instance" "owaspjs" {
   #checkov:skip=CKV_AWS_126:Ensure that detailed monitoring is enabled for EC2 instances
   #checkov:skip=CKV_AWS_135:Ensure that EC2 is EBS optimized
 
-  ami           = data.aws_ami.amzn-linux-2023-ami.id
-  instance_type = var.instance_type
+  ami               = data.aws_ami.amzn-linux-2023-ami.id
+  instance_type     = var.instance_type
+  availability_zone = var.aws_availability_zone_a
 
   subnet_id                   = aws_subnet.owaspjs.id
   associate_public_ip_address = false

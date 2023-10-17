@@ -87,3 +87,75 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+
+# AWS Managed Rules rule groups list
+# https://docs.aws.amazon.com/waf/latest/developerguide/aws-managed-rule-groups-list.html
+
+variable "managed_rules" {
+  description = "List of AWS Managed WAF rules to apply to Web ACLs."
+
+  type = list(object({
+    name            = string
+    priority        = number
+    override_action = string
+  }))
+
+  validation {
+    condition = alltrue([for rule in var.managed_rules : contains([
+      "AWSManagedRulesCommonRuleSet",
+      "AWSManagedRulesAdminProtectionRuleSet",
+      "AWSManagedRulesKnownBadInputsRuleSet",
+      "AWSManagedRulesSQLiRuleSet",
+      "AWSManagedRulesLinuxRuleSet",
+      "AWSManagedRulesUnixRuleSet",
+      "AWSManagedRulesAmazonIpReputationList",
+      "AWSManagedRulesAnonymousIpList",
+      "AWSManagedRulesBotControlRuleSet",
+    ], rule.name)])
+    error_message = "Unsupported AWS Managed Rule provided."
+  }
+
+  # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl#override-action
+  validation {
+    condition     = alltrue([for rule in var.managed_rules : contains(["none", "count"], rule.override_action)])
+    error_message = "Unsupported override action, valid inputs are 'none' and 'count'."
+  }
+
+  default = [
+    {
+      name            = "AWSManagedRulesAmazonIpReputationList",
+      priority        = 10
+      override_action = "count"
+    },
+    {
+      name            = "AWSManagedRulesCommonRuleSet",
+      priority        = 20
+      override_action = "count"
+    },
+    {
+      name            = "AWSManagedRulesKnownBadInputsRuleSet",
+      priority        = 30
+      override_action = "count"
+    },
+    {
+      name            = "AWSManagedRulesSQLiRuleSet",
+      priority        = 40
+      override_action = "count"
+    },
+    {
+      name            = "AWSManagedRulesLinuxRuleSet",
+      priority        = 50
+      override_action = "count"
+    },
+    {
+      name            = "AWSManagedRulesUnixRuleSet",
+      priority        = 60
+      override_action = "count"
+    },
+    {
+      name            = "AWSManagedRulesBotControlRuleSet",
+      priority        = 70
+      override_action = "count"
+    },
+  ]
+}
