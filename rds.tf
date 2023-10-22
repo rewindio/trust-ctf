@@ -22,6 +22,7 @@ resource "aws_db_subnet_group" "cftd" {
   }
 }
 
+/*
 resource "aws_db_instance" "cftd" {
   identifier             = "ctfd-db"
   instance_class         = "db.t3.micro"
@@ -38,3 +39,4 @@ resource "aws_db_instance" "cftd" {
   publicly_accessible    = false
   skip_final_snapshot    = true
 }
+*/
