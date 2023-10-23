@@ -1,0 +1,39 @@
+---
+- name: OWASP Juice Shop
+  gather_facts: false
+  remote_user: ssm-user
+  become: true
+  hosts: all
+
+  tasks:
+    - name: Install Docker
+      become: true
+      dnf:
+        name: docker
+        state: present
+
+    - name: Enable Docker service
+      become: true
+      ansible.builtin.systemd:
+        name: docker.service
+        state: started
+        enabled: true
+
+    - name: Add ssm-user user to docker group
+      become: true
+      ansible.builtin.user:
+        name: ssm-user
+        groups: docker
+        append: yes
+
+    - name: Pull bkimminich/juice-shop docker image
+      community.docker.docker_image:
+        name: bkimminich/juice-shop
+        source: pull
+
+    - name: Launch OWASP Juice Shop container
+      community.docker.docker_container:
+        name: juice-shop
+        image: bkimminich/juice-shop
+        ports:
+          - "80:3000"

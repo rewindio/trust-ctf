@@ -23,7 +23,7 @@
         state: started
         enabled: true
 
-    - name: Add cftd user to docker group
+    - name: Add ssm-user user to docker group
       ansible.builtin.user:
         name: ssm-user
         groups: docker
