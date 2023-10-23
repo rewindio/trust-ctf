@@ -8,17 +8,17 @@ output "owaspjs_private_dns" {
   value       = aws_instance.owaspjs.private_dns
 }
 
-output "rds_hostname" {
-  description = "RDS instance hostname"
-  value       = aws_db_instance.cftd.address
+output "s3_bucket_name_ansible_playbooks" {
+  description = "The Ansible playbook S3 bucket name"
+  value       = aws_s3_bucket.ansible.bucket
 }
 
-output "rds_port" {
-  description = "RDS instance port"
-  value       = aws_db_instance.cftd.port
+output "ec2_cftd_instance_id" {
+  description = "The EC2 instance ID of the CTFd instance"
+  value       = aws_instance.ctfd.id
 }
 
-output "rds_username" {
-  description = "RDS instance username"
-  value       = aws_db_instance.cftd.username
+output "ec2_owaspjs_instance_id" {
+  description = "The EC2 instance ID of the OWASP Juice Shop instance"
+  value       = aws_instance.owaspjs.id
 }

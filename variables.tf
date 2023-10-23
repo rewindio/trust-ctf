@@ -5,6 +5,13 @@ variable "aws_region" {
   default = "ca-central-1"
 }
 
+variable "ansible_playbook_bucket_name" {
+  description = "The name of the S3 bucket to hold the Ansible playbooks."
+  type        = string
+
+  default = "trust-ctf-ansible-playbooks"
+}
+
 variable "aws_availability_zone_a" {
   description = "The availability zone to deploy into (defaults to 'ca-central-1a' for legal reasons)"
   type        = string
@@ -61,31 +68,11 @@ variable "subnet_cftd_cidr_block" {
   default = "192.168.42.128/27"
 }
 
-variable "subnet_a_rds_cidr_block" {
-  description = "The IPv4 CIDR block for the RDS subnet A"
-  type        = string
-
-  default = "192.168.42.160/27"
-}
-
-variable "subnet_b_rds_cidr_block" {
-  description = "The IPv4 CIDR block for the RDS subnet B"
-  type        = string
-
-  default = "192.168.42.208/28"
-}
-
 variable "instance_type" {
   description = "The instance type to use for the CTFd and OWASP Juice Shop EC2 instances"
   type        = string
 
-  default = "t2.micro"
-}
-
-variable "db_password" {
-  description = "RDS user password"
-  type        = string
-  sensitive   = true
+  default = "t2.medium"
 }
 
 # AWS Managed Rules rule groups list
