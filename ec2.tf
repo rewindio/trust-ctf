@@ -38,6 +38,12 @@ resource "aws_instance" "ctfd" {
 
   iam_instance_profile = aws_iam_instance_profile.ctf.id
 
+  user_data = <<-EOF
+              #!/bin/bash
+              dnf update -y
+              dnf install -y ansible
+              EOF
+
   tags = {
     Name = "CTFd"
   }
@@ -72,6 +78,12 @@ resource "aws_instance" "owaspjs" {
   }
 
   iam_instance_profile = aws_iam_instance_profile.ctf.id
+
+  user_data = <<-EOF
+              #!/bin/bash
+              dnf update -y
+              dnf install -y ansible
+              EOF
 
   tags = {
     Name = "OWASP Juice Shop"
