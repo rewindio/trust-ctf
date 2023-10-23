@@ -27,7 +27,7 @@ terraform apply
 ```
 aws s3 sync ./ansible s3://bucket-name --include "*.yml"
 # Install CFTd
-aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --instance-ids "i-0xxxxxxxxxxxxxxxx" --max-errors 1 --parameters '{"extravars":["SSM=True"],"check":["False"],"playbook":["s3://bucket-name/playbook_cftd.yml"]}' --timeout-seconds 600 --region ca-central-1
+aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --instance-ids "i-0xxxxxxxxxxxxxxxx" --max-errors 1 --parameters '{"extravars":["SSM=True"],"check":["False"],"playbookurl":["s3://bucket-name/playbook_cftd.yml"]}' --timeout-seconds 600 --region ca-central-1
 # Install OWASP Juice Shop
-aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --instance-ids "i-0xxxxxxxxxxxxxxxx" --max-errors 1 --parameters '{"extravars":["SSM=True"],"check":["False"],"playbook":["s3://bucket-name/playbook_owaspjs.yml"]}' --timeout-seconds 600 --region ca-central-1
+aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --instance-ids "i-0xxxxxxxxxxxxxxxx" --max-errors 1 --parameters '{"extravars":["SSM=True"],"check":["False"],"playbookurl":["s3://bucket-name/playbook_owaspjs.yml"]}' --timeout-seconds 600 --region ca-central-1
 ```
