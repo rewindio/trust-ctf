@@ -131,30 +131,6 @@ resource "aws_subnet" "owaspjs" {
   }
 }
 
-resource "aws_subnet" "rds_a" {
-  vpc_id            = aws_vpc.ctf.id
-  cidr_block        = var.subnet_a_rds_cidr_block
-  availability_zone = var.aws_availability_zone_a
-
-  enable_resource_name_dns_a_record_on_launch = true
-
-  tags = {
-    Name = "RDS | Subnet ${var.aws_availability_zone_a}"
-  }
-}
-
-resource "aws_subnet" "rds_b" {
-  vpc_id            = aws_vpc.ctf.id
-  cidr_block        = var.subnet_b_rds_cidr_block
-  availability_zone = var.aws_availability_zone_b
-
-  enable_resource_name_dns_a_record_on_launch = true
-
-  tags = {
-    Name = "RDS | Subnet ${var.aws_availability_zone_b}"
-  }
-}
-
 resource "aws_route_table_association" "public_a" {
   subnet_id      = aws_subnet.public_a.id
   route_table_id = aws_route_table.ctf.id

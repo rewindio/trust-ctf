@@ -120,7 +120,7 @@ fields @timestamp as Timestamp,
   httpRequest.httpMethod as Request_Method,
   httpRequest.uri as URI
 | sort @timestamp desc
-| filter action not like "ALLOW" and
-| terminatingRuleId in ["AWSManagedRulesAmazonIpReputationList", "AWSManagedRulesCommonRuleSet", "AWSManagedRulesKnownBadInputsRuleSet", "AWSManagedRulesSQLiRuleSet", "AWSManagedRulesLinuxRuleSet"]
+| filter terminatingRuleId in ["AWSManagedRulesAmazonIpReputationList", "AWSManagedRulesCommonRuleSet", "AWSManagedRulesKnownBadInputsRuleSet", "AWSManagedRulesSQLiRuleSet", "AWSManagedRulesLinuxRuleSet"]
+or nonTerminatingMatchingRules.0.ruleId in ["AWSManagedRulesAmazonIpReputationList", "AWSManagedRulesCommonRuleSet", "AWSManagedRulesKnownBadInputsRuleSet", "AWSManagedRulesSQLiRuleSet", "AWSManagedRulesLinuxRuleSet"]
 EOF
 }

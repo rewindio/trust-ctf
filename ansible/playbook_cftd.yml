@@ -1,0 +1,81 @@
+---
+
+- name: CFTd
+  gather_facts: false
+  remote_user: ssm-user
+  become: true
+  hosts: all
+
+  tasks:
+    - name: Install Git
+      dnf:
+        name: git
+        state: present
+
+    - name: Install Docker
+      dnf:
+        name: docker
+        state: present
+
+    - name: Enable Docker service
+      ansible.builtin.systemd:
+        name: docker.service
+        state: started
+        enabled: true
+
+    - name: Add ssm-user user to docker group
+      ansible.builtin.user:
+        name: ssm-user
+        groups: docker
+        append: yes
+
+    - name: Create /opt/cftd directory
+      ansible.builtin.file:
+        path: /opt/cftd
+        state: directory
+        owner: ssm-user
+        group: ssm-user
+        mode: "0755"
+
+    - name: Workaround Git safe directory error
+      community.general.git_config:
+        name: safe.directory
+        value: /opt/cftd
+        scope: global
+      environment:
+        HOME: /home/ssm-user
+
+    - name: Read safe directory from git config
+      community.general.git_config:
+        name: safe.directory
+        scope: global
+      environment:
+        HOME: /home/ssm-user
+
+    - name: Git clone CFTd git repo
+      ansible.builtin.git:
+        repo: "https://github.com/CTFd/CTFd.git"
+        dest: /opt/cftd
+        clone: yes
+      environment:
+        HOME: /home/ssm-user
+
+    - name: Change ownership of CFTd directory
+      ansible.builtin.file:
+        path: /opt/cftd
+        state: directory
+        recurse: yes
+        owner: ssm-user
+        group: ssm-user
+
+    - name: Download docker-compose
+      become: true
+      ansible.builtin.get_url:
+        url: https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64
+        dest: /usr/bin/docker-compose
+        mode: "755"
+
+    - name: Run docker-compose to start cftd
+      ansible.builtin.command: /usr/bin/docker-compose up -d
+      args:
+        chdir: /opt/cftd
