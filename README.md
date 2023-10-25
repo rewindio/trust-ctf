@@ -31,3 +31,9 @@ aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --instance-ids "i-
 # Install OWASP Juice Shop
 aws ssm send-command --document-name "AWS-RunAnsiblePlaybook" --instance-ids "i-0xxxxxxxxxxxxxxxx" --max-errors 1 --parameters '{"extravars":["SSM=True"],"check":["False"],"playbookurl":["s3://bucket-name/playbook_owaspjs.yml"]}' --timeout-seconds 600 --region ca-central-1
 ```
+
+### Step 3: Configure the Flags
+
+[juice-shop-ctf-cli (OWASP Juice Shop CTF Extension)](https://www.npmjs.com/package/juice-shop-ctf-cli)
+
+> The Node package juice-shop-ctf-cli helps you to prepare Capture the Flag events with the OWASP Juice Shop challenges for different popular CTF frameworks. This interactive utility allows you to populate a CTF game server in a matter of minutes.
