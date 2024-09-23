@@ -1,6 +1,6 @@
 # Capture the Flag (CTF) Repo
 
-Trust's capture the Flag (CTF) resources for Cybersecurity Awareness month.
+Capture the Flag (CTF) resources for Cybersecurity Awareness month.
 
 This repository contains the Terraform that can be used to deploy an instance of OWASP Juice Shop on EC2 instance along with CFTd app to help manage the CTF event.
 
@@ -21,7 +21,7 @@ terraform apply
 
 ### Step 2: Install applications via Ansible playbooks
 
-- Replace the `s3://bucket-name` with the value of the `s3_bucket_name_ansible_playbooks` output from the Terraform apply. 
+- Replace the `s3://bucket-name` with the value of the `s3_bucket_name_ansible_playbooks` output from the Terraform apply.
 - Replace the `--instance-ids` values with the corresponding `ec2_cftd_instance_id` and `ec2_owaspjs_instance_id` output values from the Terraform apply.
 
 ```

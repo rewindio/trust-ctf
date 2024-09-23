@@ -9,7 +9,7 @@ variable "ansible_playbook_bucket_name" {
   description = "The name of the S3 bucket to hold the Ansible playbooks."
   type        = string
 
-  default = "trust-ctf-ansible-playbooks"
+  default = "ctf-ansible-playbooks"
 }
 
 variable "aws_availability_zone_a" {
